@@ -1,25 +1,42 @@
 // components/DashboardClient.tsx
 "use client";
 
-import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
 import { toast } from "@/components/ui/Toast";
 
-export default function DashboardClient() {
-  const { data: session } = useSession();
+interface DashboardClientProps {
+  userName?: string | null;
+}
+
+const SESSION_STORAGE_KEY = "dashboard_welcome_shown";
+
+export default function DashboardClient({ userName }: DashboardClientProps) {
   const [hasShownToast, setHasShownToast] = useState(false);
 
-  const userName = session?.user?.name;
-
+  // Show toast only on fresh login (not on page refresh or revisit)
   useEffect(() => {
-    if (session && !hasShownToast) {
+    const hasShownWelcome = sessionStorage.getItem(SESSION_STORAGE_KEY);
+    
+    if (!hasShownToast && userName && !hasShownWelcome) {
+      sessionStorage.setItem(SESSION_STORAGE_KEY, "true");
       toast.success({
-        title: `Welcome back, ${userName || "Player"}!`,
+        title: `Welcome, ${userName}!`,
         description: "You have successfully logged in.",
       });
-      setHasShownToast(true);
+      setTimeout(() => setHasShownToast(true), 0);
     }
-  }, [session, userName, hasShownToast]);
+  }, [userName, hasShownToast]);
 
-  return <div>Welcome, {userName || "Player"}!</div>;
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          Welcome, {userName ?? "Player"}!
+        </h1>
+        <p className="text-gray-600">
+          You have successfully logged in to your dashboard.
+        </p>
+      </div>
+    </div>
+  );
 }
