@@ -1,8 +1,36 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { toast } from "@/components/ui/Toast";
 import { signIn } from "next-auth/react";
 
+const reasonMessages: Record<string, { title: string; description: string }> = {
+  session_expired: {
+    title: "Session Expired",
+    description: "Your session has expired. Please sign in again.",
+  },
+  logged_out: {
+    title: "Logged Out",
+    description: "You have been successfully logged out.",
+  },
+};
+
 export default function LoginPage() {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const reason = searchParams.get("reason");
+    const message =
+      reason && reason in reasonMessages ? reasonMessages[reason] : null;
+
+    if (message)
+      toast.info({
+        title: message.title,
+        description: message.description,
+      });
+  }, [searchParams]);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow-md">
@@ -16,7 +44,7 @@ export default function LoginPage() {
         <div className="mt-8">
           <button
             onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-            className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-gray-800 cursor-pointer"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path

@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from "react";
 import { toast } from "@/components/ui/Toast";
+import { authUtils } from "@/app/lib/auth-utils";
 
 interface DashboardClientProps {
   userName?: string | null;
@@ -36,6 +37,14 @@ export default function DashboardClient({ userName }: DashboardClientProps) {
         <p className="text-gray-600">
           You have successfully logged in to your dashboard.
         </p>
+
+        <button onClick={() => {
+          sessionStorage.removeItem(SESSION_STORAGE_KEY);
+          authUtils.signOut();
+        }}
+          className="px-4 py-2 text-sm text-white bg-red-600 rounded hover:bg-red-800">
+          Sign Out
+        </button>
       </div>
     </div>
   );

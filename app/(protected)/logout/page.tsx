@@ -1,10 +1,10 @@
 'use client';
 
-import { signOut } from "next-auth/react";
+import { authUtils } from "@/app/lib/auth-utils";
 
 function SignOutButton() {
   return (
-    <button onClick={() => signOut({ callbackUrl: '/login' })} className="px-4 py-2 text-sm text-white bg-red-600 rounded hover:bg-red-800">
+    <button onClick={() => authUtils.signOut()} className="px-4 py-2 text-sm text-white bg-red-600 rounded hover:bg-red-800">
       Sign Out
     </button>
   );
