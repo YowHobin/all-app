@@ -26,6 +26,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import Image from "next/image";
+import IconImage from "@/public/icon.png";
 
 const data = {
   user: {
@@ -103,8 +105,14 @@ export function AppSidebar({
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a href="#">
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <Command className="size-4" />
+                <div className=" text-sidebar-primary-foreground flex aspect-square size-10 items-center justify-center rounded-lg">
+                  <Image
+                    src={IconImage}
+                    alt="Logo"
+                    width={36}
+                    height={36}
+                    className="object-contain"
+                  />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">Lenard</span>
