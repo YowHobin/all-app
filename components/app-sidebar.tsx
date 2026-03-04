@@ -115,7 +115,7 @@ export function AppSidebar({
                   />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Lenard</span>
+                  <span className="truncate font-medium">Lenard Roy</span>
                   <span className="truncate text-xs">Applications</span>
                 </div>
               </a>
