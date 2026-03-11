@@ -37,23 +37,15 @@ const data = {
   },
   navMain: [
     {
-      title: "Playground",
+      title: "Main",
       url: "#",
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
-          title: "History",
+          title: "Sites",
           url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
+        }
       ],
     },
   ],
